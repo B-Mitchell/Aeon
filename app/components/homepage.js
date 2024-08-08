@@ -1,8 +1,16 @@
-import React from "react";
+'use client'
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
-const HomePage = () => {
-    return(
-        <p >This is the homepage</p>
-    )
-}
-export default HomePage;
+const Home = () => {
+    const router = useRouter();
+  const user = useSelector((state) => state.user);
+
+  return (
+    <div>
+      
+    </div>
+  );
+};
+
+export default Home;
