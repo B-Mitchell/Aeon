@@ -51,7 +51,7 @@ const SignIn = () => {
         <input name="phone_number" value={form.phone_number} onChange={handleChange} placeholder="Phone Number" required 
         className='block my-2 w-[95%] m-auto rounded-lg p-3 border-2 border-[#666666] outline-none mb-7 focus:scale-105 focus:rounded-none transition'/>
         <button type="submit" 
-        className='block my-2 w-[95%] m-auto rounded-lg p-2 border-2 border-[#666666] bg-green-600 text-white hover:bg-green-700 hover:rounded-none mt-3'>Sign In</button>
+        className='block my-2 w-[95%] m-auto rounded-lg p-2 border-2 bg-green-600 text-white hover:bg-green-700 hover:rounded-none mt-3'>Sign In</button>
 
         <p className='text-center mt-5 '>already have an account ? <span className='text-green-700 cursor-pointer' onClick={() => router.push('/auth/login')}>Login</span></p>
       </form>
