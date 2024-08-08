@@ -17,7 +17,7 @@ const Navbar = () => {
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white text-lg font-bold">
-          <p >Land Management</p>
+          <p className='text-[2rem]'>Aeon</p>
         </div>
         <ul className="flex space-x-4">
           <li>
