@@ -46,8 +46,8 @@ const Page = () => {
             </div>
         </div>
         <div className="w-[90%] md:w-[80%] shadow-lg bg-white m-auto mt-6 rounded-lg p-4 flex justify-between">
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200">Add New Record</button>
-            <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-200">View Existing Records</button>
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200 w-[30%] md:w-[40%]">Add New Record</button>
+            <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-200 w-[30%] md:w-[40%]">View Existing Records</button>
         </div>
       </>
     )
