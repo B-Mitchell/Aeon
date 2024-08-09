@@ -20,7 +20,7 @@ const Page = () => {
     }, [user_id, router]);
     return (
       <>
-        <div className="w-[80%] shadow-lg bg-white m-auto mt-10 rounded-lg p-6">
+        <div className="w-[90%] md:w-[80%] shadow-lg bg-white m-auto mt-10 rounded-lg p-6">
             <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">Profile</h1>
             <div className="space-y-4">
                 <div className="flex justify-between">
@@ -45,7 +45,7 @@ const Page = () => {
                 </div>
             </div>
         </div>
-        <div className="w-[80%] shadow-lg bg-white m-auto mt-6 rounded-lg p-6 flex justify-between">
+        <div className="w-[90%] md:w-[80%] shadow-lg bg-white m-auto mt-6 rounded-lg p-4 flex justify-between">
             <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200">Add New Record</button>
             <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-200">View Existing Records</button>
         </div>
