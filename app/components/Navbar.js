@@ -12,6 +12,7 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
   };
+  
 
   return (
     <nav className="bg-gray-800 p-4">

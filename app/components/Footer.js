@@ -27,7 +27,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-700 mt-6 pt-4 text-center">
-          <p className="text-gray-500 text-sm">&copy; {new Date().getFullYear()} LandInfo. All rights reserved.</p>
+          <p className="text-gray-500 text-sm">&copy; {new Date().getFullYear()} Aeon. All rights reserved.</p>
         </div>
       </footer>
   )

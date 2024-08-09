@@ -1,57 +1,76 @@
 'use client'
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setUserId, setEmail, setFirstName, setLastName, setPhoneNumber } from '../../globalRedux/slices/userSlice';
+import supabase from '../../supabase.js';
 import { useRouter } from 'next/navigation';
 
 const SignIn = () => {
   const router = useRouter();
-  const [form, setForm] = useState({
-    user_id: '',
-    user_email: '',
-    first_name: '',
-    last_name: '',
-    organizer_name: '',
-    phone_number: '',
-  });
-
-  const dispatch = useDispatch();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
+  // sign in data
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [agency, setAgency] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setUserId(form.user_id));
-    dispatch(setEmail(form.user_email));
-    dispatch(setFirstName(form.first_name));
-    dispatch(setLastName(form.last_name));
-    dispatch(setPhoneNumber(form.phone_number));
-    // You can add further actions such as API calls here
-  };
+    setIsLoading(true);
+    const formData = {
+      email: email,
+      password: password,
+      options: {
+        data: {
+        first_name: firstName,
+        last_name: lastName,
+        phone_number: phoneNumber,
+        agency: agency
+        }
+    }
+    }
+    try {
+      let { data, error } = await supabase.auth.signUp(formData);
+      if (error) {
+        console.log('supabase error: ' + error);
+      } else {
+        router.push('/auth/login');
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div className='text-[#666666]'>
       <form onSubmit={handleSubmit} className='bg-white text-gray-780 w-[95%] md:w-[60%] lg:w-[] m-auto p-4 border-[.1rem] rounded-lg my-auto block mt-[5%] md:mt-[10%] lg:mt-[5%] shadow-lg'>
       <p className='font-semibold text-center text-[1.4rem] mt-5 text-black mb-5'>Create an account</p>
         <p className='w-[95%] m-auto text-black'>Email</p>
-        <input name="user_email" value={form.user_email} onChange={handleChange} placeholder="enter email" required className='block my-2 w-[95%] m-auto rounded-lg p-3 border-2 border-[#666666] outline-none mb-3 focus:scale-105 focus:rounded-none transition'/>
+        <input name="user_email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="eg: johnDoe@gmail.com" required className='block my-2 w-[95%] m-auto rounded-lg p-3 border-2 border-[#666666] outline-none mb-3 focus:scale-105 focus:rounded-none transition'/>
+
+        <p className='w-[95%] m-auto text-black'>Agency</p>
+        <input name="user_email" value={agency} onChange={(e) => setAgency(e.target.value)} placeholder="eg: Aeon Housing and land services" required className='block my-2 w-[95%] m-auto rounded-lg p-3 border-2 border-[#666666] outline-none mb-3 focus:scale-105 focus:rounded-none transition'/>
+
         <p className='w-[95%] m-auto text-black'>First name</p>
-        <input name="first_name" value={form.first_name} onChange={handleChange} placeholder="First Name" required 
+        <input name="first_name" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="eg: John" required 
         className='block my-2 w-[95%] m-auto rounded-lg p-3 border-2 border-[#666666] outline-none mb-3 focus:scale-105 focus:rounded-none transition'/>
+
         <p className='w-[95%] m-auto text-black'>Last name</p>
-        <input name="last_name" value={form.last_name} onChange={handleChange} placeholder="Last Name" required 
+        <input name="last_name" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="eg: Doe" required 
         className='block my-2 w-[95%] m-auto rounded-lg p-3 border-2 border-[#666666] outline-none mb-3 focus:scale-105 focus:rounded-none transition'/>
+
         <p className='w-[95%] m-auto text-black'>Phone number</p>
-        <input name="phone_number" value={form.phone_number} onChange={handleChange} placeholder="Phone Number" required 
+        <input name="phone_number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} placeholder="eg: 070********79" required 
+        className='block my-2 w-[95%] m-auto rounded-lg p-3 border-2 border-[#666666] outline-none focus:scale-105 focus:rounded-none transition'/>
+
+        <p className='w-[95%] m-auto text-black'>Password</p>
+        <input name="password" type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder="eg: *******" required 
         className='block my-2 w-[95%] m-auto rounded-lg p-3 border-2 border-[#666666] outline-none mb-7 focus:scale-105 focus:rounded-none transition'/>
-        <button type="submit" 
-        className='block my-2 w-[95%] m-auto rounded-lg p-2 border-2 bg-green-600 text-white hover:bg-green-700 hover:rounded-none mt-3'>Sign In</button>
+
+        <button type="submit"
+        className='block my-2 w-[95%] m-auto rounded-lg p-2 border-2 bg-green-600 text-white hover:bg-green-700 hover:rounded-none mt-3'>{isLoading ? 'Signing in...' : 'Sign in'}</button>
 
         <p className='text-center mt-5 '>already have an account ? <span className='text-green-700 cursor-pointer' onClick={() => router.push('/auth/login')}>Login</span></p>
       </form>
