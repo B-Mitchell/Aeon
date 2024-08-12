@@ -24,29 +24,29 @@ const Page = () => {
             <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">Profile</h1>
             <div className="space-y-4">
                 <div className="flex justify-between">
-                    <span className="text-lg font-semibold text-gray-700">Agency:</span>
+                    <span className="text-base font-semibold text-gray-700">Agency:</span>
                     <span className="text-lg text-gray-600">{agency}</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-lg font-semibold text-gray-700">Email:</span>
+                    <span className="text-base font-semibold text-gray-700">Email:</span>
                     <span className="text-lg text-gray-600">{email}</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-lg font-semibold text-gray-700">First Name:</span>
-                    <span className="text-lg text-gray-600">{firstName}</span>
+                    <span className="text-base font-semibold text-gray-700">First Name:</span>
+                    <span className="text-base text-gray-600">{firstName}</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-lg font-semibold text-gray-700">Last Name:</span>
-                    <span className="text-lg text-gray-600">{lastName}</span>
+                    <span className="text-base font-semibold text-gray-700">Last Name:</span>
+                    <span className="text-base text-gray-600">{lastName}</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-lg font-semibold text-gray-700">Phone Number:</span>
-                    <span className="text-lg text-gray-600">{phoneNumber}</span>
+                    <span className="text-base font-semibold text-gray-700">Phone Number:</span>
+                    <span className="text-base text-gray-600">{phoneNumber}</span>
                 </div>
             </div>
         </div>
         <div className="w-[90%] md:w-[80%] shadow-lg bg-white m-auto mt-6 rounded-lg p-4 flex justify-between">
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200 w-[40%] ">Add New Record</button>
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200 w-[40%] " onClick={() => router.push('/profile/addRecord')}>Add New Record</button>
             <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-200 w-[40%] ">View Existing Records</button>
         </div>
       </>

@@ -1,6 +1,10 @@
+'use client'
 import Head from 'next/head';
+import { useRouter } from 'next/navigation';
 
 export default function Homepage() {
+  const router = useRouter();
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Head>
@@ -16,8 +20,8 @@ export default function Homepage() {
             <h1 className="text-4xl font-bold mb-4">Welcome to Aeon System</h1>
             <p className="text-lg mb-8">Manage and view land information with ease and efficiency.</p>
             <div className="flex justify-center gap-4">
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200">Add New Record</button>
-              <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-200">View Existing Records</button>
+              <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200" onClick={() => router.push('/profile/addRecord')}>Add New Record</button>
+              <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-200" onClick={() => router.push('/land_records')}>View Existing Records</button>
             </div>
           </div>
         </section>

@@ -24,12 +24,15 @@ const Navbar = () => {
           <li>
             <p onClick={() => router.push('/')} className="text-white hover:text-gray-300 cursor-pointer">Home</p>
           </li>
+          <li>
+            <p onClick={() => router.push('/profile')} className="text-white hover:text-gray-300 cursor-pointer">Profile</p>
+          </li>
           {user.user_id ? (
             <>
               <li className="text-white">Welcome, {user.first_name}</li>
               <li>
                 <button
-                  className="text-white hover:text-gray-300"
+                  className="text-white hover:text-red-600"
                   onClick={handleLogout}
                 >
                   Logout
