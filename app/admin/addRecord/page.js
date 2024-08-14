@@ -72,7 +72,7 @@ const CreateLandRecord = () => {
     };
 
   return (
-    <div className="container mx-auto p-6 w-[100%] md:w-[70%] lg:w-[50%]">
+    <div className="container mx-auto p-6 w-[100%] md:w-[70%] lg:w-[70%] min-w-[30rem]">
       <h1 className="text-3xl font-bold mb-6 text-center">Create Land Record</h1>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
         <div className="mb-4">

@@ -12,6 +12,7 @@ const SignIn = () => {
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [agency, setAgency] = useState('');
+  const [role, setRole] = useState('user');
   const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +25,8 @@ const SignIn = () => {
         first_name: firstName,
         last_name: lastName,
         phone_number: phoneNumber,
-        agency: agency
+        agency: agency,
+        role: role,
         }
     }
     }
@@ -33,6 +35,7 @@ const SignIn = () => {
       if (error) {
         console.log('supabase error: ' + error);
       } else {
+        addToUsersTable();
         router.push('/auth/login');
         console.log(data);
       }
@@ -40,6 +43,27 @@ const SignIn = () => {
       console.log(error);
     } finally {
       setIsLoading(false);
+    }
+  }
+  const addToUsersTable = async () => {
+    const datas = {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      agency: agency,
+      role: role
+    }
+    try {
+    const { data, error } = await supabase.from('users').insert([datas]).select()
+
+    if (error) {
+      console.log(error)
+    } else {
+      console.log("success!")
+    }
+    } catch (error) {
+      console.error(error);
     }
   }
 

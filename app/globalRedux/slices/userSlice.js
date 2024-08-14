@@ -9,6 +9,7 @@ export const userSlice = createSlice({
         last_name: '',
         agency: '',
         phone_number: Number,
+        role: '',
         },
     reducers: {
         setUserId: (state, action) => {state.user_id = action.payload},
@@ -17,10 +18,11 @@ export const userSlice = createSlice({
         setLastName: ( state, action ) => { state.last_name = action.payload},
         setAgency: ( state, action ) => { state.agency = action.payload},
         setPhoneNumber: ( state, action ) => { state.phone_number = action.payload },
-        logoutUser: (state) => {state.user_id = '', state.user_email = '', state.first_name = '', state.last_name = '',state.agency = '', state.phone_number = ''},
+        setRole: ( state, action ) => { state.role = action.payload },
+        logoutUser: (state) => {state.user_id = '', state.user_email = '', state.first_name = '', state.last_name = '',state.agency = '', state.phone_number = '', state.role = ''},
     }
 });
 
-export const { setUserId, setEmail, setFirstName, setLastName, setAgency, setPhoneNumber, logoutUser } = userSlice.actions;
+export const { setUserId, setEmail, setFirstName, setLastName, setAgency, setPhoneNumber, setRole,  logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;
