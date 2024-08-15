@@ -111,7 +111,7 @@ const Login = () => {
       <button type="submit" className='block my-2 w-[95%] m-auto rounded-lg p-2 border-2 bg-green-600 text-white hover:bg-green-700 hover:rounded-none mt-3'>
         {isLoading ? 'Logging in...' : 'Log in'}
       </button>
-      <p className='text-center mt-5 '>Don't have an account? <span className='text-green-700 cursor-pointer' onClick={() => router.push('/auth/signup')}>Sign up</span></p>
+      <p className='text-center mt-5 '>{`Don't`} have an account? <span className='text-green-700 cursor-pointer' onClick={() => router.push('/auth/signup')}>Sign up</span></p>
     </form>
   );
 };

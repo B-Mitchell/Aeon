@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 const CreateLandRecord = () => {
     const router = useRouter();
     const user_id = useSelector(state => state.user.user_id);
+    const role = useSelector(state => state.user.role);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         userId: user_id,
@@ -21,11 +22,14 @@ const CreateLandRecord = () => {
     });
     // check if user is logged out
     useEffect(() => {
-        console.log(user_id)
-        if (!user_id) {
-          router.push('/auth/login');
+      if (user_id) {
+        if (role !== 'admin') {
+          router.push('/profile');
         }
-    }, [user_id, router]);
+      } else {
+        router.push('/auth/login');
+      }
+    }, [user_id, role, router]);
     
 
     const handleChange = (e) => {

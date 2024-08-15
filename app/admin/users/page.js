@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 const Page = () => {
   const router = useRouter();
   const [fetchedUsers, setFetchedUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('firstName');
   const [loading, setLoading] = useState(false);
@@ -16,9 +15,7 @@ const Page = () => {
 
   useEffect(() => {
     if (user_id) {
-      if (role === 'admin') {
-        console.log(role);
-      } else {
+      if (role !== 'admin') {
         router.push('/profile');
       }
     } else {
@@ -26,6 +23,7 @@ const Page = () => {
     }
   }, [user_id, role, router]);
 
+  // Function to fetch all users
   const fetchAllUsers = async () => {
     setLoading(true);
     try {
@@ -34,10 +32,9 @@ const Page = () => {
         .select('*');
 
       if (error) {
-        console.log(error);
+        console.error('Error fetching users:', error);
       } else {
         setFetchedUsers(users);
-        setFilteredUsers(users);
       }
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -50,27 +47,26 @@ const Page = () => {
     fetchAllUsers();
   }, []);
 
-  // Handle search
-  useEffect(() => {
-    const results = fetchedUsers.filter(user =>
+  // Filter and sort users
+  const filteredUsers = fetchedUsers
+    .filter(user =>
       user.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.role.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredUsers(results);
-  }, [searchQuery, fetchedUsers]);
-
-  // Handle sorting
-  const handleSort = (users) => {
-    return [...users].sort((a, b) =>
-      a[sortBy].localeCompare(b[sortBy])
-    );
-  };
-
-  useEffect(() => {
-    setFilteredUsers(handleSort(filteredUsers));
-  }, [sortBy]);
+    )
+    .sort((a, b) => {
+      if (sortBy === 'firstName') {
+        return a.firstName.localeCompare(b.firstName);
+      } else if (sortBy === 'lastName') {
+        return a.lastName.localeCompare(b.lastName);
+      } else if (sortBy === 'email') {
+        return a.email.localeCompare(b.email);
+      } else if (sortBy === 'role') {
+        return a.role.localeCompare(b.role);
+      }
+      return 0;
+    });
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
@@ -97,7 +93,7 @@ const Page = () => {
       </div>
 
       {loading ? (
-        <p className="text-center mt-10 animate-pulse">loading users, please wait...</p>
+        <p className="text-center mt-10 animate-pulse">Loading users, please wait...</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
           {filteredUsers.map((user) => (
