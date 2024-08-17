@@ -11,6 +11,7 @@ const Page = () => {
     const firstName = useSelector(state => state.user.first_name);
     const lastName = useSelector(state => state.user.last_name);
     const phoneNumber = useSelector(state => state.user.phone_number);
+    const role = useSelector(state => state.user.role);
     // check if user is logged out
     useEffect(() => {
       console.log(user_id)
@@ -43,11 +44,15 @@ const Page = () => {
                     <span className="text-base font-semibold text-gray-700">Phone Number:</span>
                     <span className="text-base text-gray-600">{phoneNumber}</span>
                 </div>
+                <div className="flex justify-between">
+                    <span className="text-base font-semibold text-gray-700">role:</span>
+                    <span className="text-base text-gray-600">{role}</span>
+                </div>
             </div>
         </div>
         <div className="w-[90%] md:w-[80%] shadow-lg bg-white m-auto mt-6 rounded-lg p-4 flex justify-between">
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200 w-[40%] " onClick={() => router.push('/profile/addRecord')}>Add New Record</button>
-            <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-200 w-[40%] ">View Existing Records</button>
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200 w-[40%] " onClick={() => router.push('/admin/addRecord')}>Add New Record</button>
+            <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-200 w-[40%] " onClick={() => router.push('/land_records')}>View Existing Records</button>
         </div>
       </>
     )

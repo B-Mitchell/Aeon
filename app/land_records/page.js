@@ -1,10 +1,12 @@
 'use client'
 import supabase from '../supabase';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const Page = () => {
     const router = useRouter();
+    const role = useSelector(state => state.user.role);
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
@@ -57,7 +59,10 @@ const Page = () => {
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">Available Lands</h1>
-      <button onClick={() => router.push('/profile/addRecord')} className=' fixed right-3 bottom-[1rem] bg-gray-800 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-950'>Add New Record</button>
+      {
+        role != 'admin' ? null : 
+        <button onClick={() => router.push('/admin/addRecord')} className=' fixed right-3 bottom-[1rem] bg-gray-800 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-950'>Add New Record</button>
+      }
       {/* Search and Sort */}
       <div className="flex flex-col md:flex-row justify-between mb-6">
         <input
@@ -93,7 +98,7 @@ const Page = () => {
               <p><span className="font-semibold">Owner:</span> {land.owner}</p>
               <p><span className="font-semibold">Market Value:</span> {land.marketValue}</p>
             </div>
-            <button className="mt-4 md:mt-0 bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 md:ml-6">
+            <button className="mt-4 md:mt-0 bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 md:ml-6" onClick={() => router.push(`/land_records/${land.id}`)}>
               View Details
             </button>
           </div>
