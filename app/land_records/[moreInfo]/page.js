@@ -1,14 +1,19 @@
-'use client'
+'use client';
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import supabase from '@/app/supabase';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 const Page = ({ params }) => {
   let route = params.moreInfo;
+  const user_id = useSelector(state => state.user.user_id);
   const mapContainer = useRef(null);
   const [loading, setLoading] = useState(false);
   const [fetchedRecord, setFetchedRecord] = useState([]);
+  const [bidAmount, setBidAmount] = useState('');
+  const [bidSuccess, setBidSuccess] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchLandRecord = async () => {
     try {
@@ -20,7 +25,6 @@ const Page = ({ params }) => {
 
       if (data) {
         setFetchedRecord(data);
-        console.log(data);
       } else {
         console.log(error);
       }
@@ -31,10 +35,30 @@ const Page = ({ params }) => {
     }
   };
 
+  const handleBidSubmission = async (e) => {
+    e.preventDefault();
+    const bid = {
+      land_id: route, bid_amount: bidAmount, user_id: user_id
+    }
+
+    try {
+      let { data, error } = await supabase
+        .from('bids')
+        .insert([bid])
+        .select()
+
+      if (error) throw error;
+
+      setBidSuccess('Bid placed successfully!');
+      setBidAmount(''); // Clear the bid amount input field
+      setIsModalOpen(false); // Close the modal after submission
+    } catch (error) {
+      setBidSuccess(`Error placing bid: ${error.message}`);
+    }
+  };
+
   useEffect(() => {
-    console.log(route);
     fetchLandRecord();
-    console.log(fetchedRecord);
 
     // Initialize MapLibre GL map
     const map = new maplibregl.Map({
@@ -87,11 +111,46 @@ const Page = ({ params }) => {
           )
         )}
       </div>
+
+      {/* Button to open the modal */}
       <div className='mt-3'>
-        <button className='m-auto block bg-blue-500 text-white rounded-lg p-3 w-[10rem] shadow hover:bg-blue-600'>Place Bid</button>
+        <button onClick={() => setIsModalOpen(true)} className='m-auto block bg-blue-500 text-white rounded-lg p-3 w-[10rem] shadow hover:bg-blue-600'>
+          Place Bid
+        </button>
       </div>
+
+      {/* Modal for placing a bid */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg p-6 w-11/12 max-w-lg mx-auto">
+            <button onClick={() => setIsModalOpen(false)} className="text-gray-700 float-right scale-150">
+              &times;
+            </button>
+            <form onSubmit={handleBidSubmission}>
+              <label className="block mb-2 text-lg font-bold text-gray-700" htmlFor="bidAmount">Place Your Bid:</label>
+              <input
+                type="number"
+                id="bidAmount"
+                name="bidAmount"
+                value={bidAmount}
+                onChange={(e) => setBidAmount(e.target.value)}
+                className="border rounded-lg p-2 w-full mb-4"
+                placeholder={`Enter bid amount, min: ${fetchedRecord[0].marketValue}`}
+                required
+              />
+              <button type="submit" className='m-auto block bg-blue-500 text-white rounded-lg p-3 w-[10rem] shadow hover:bg-blue-600'>
+                Submit Bid
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {bidSuccess && 
+      <p className="text-center text-green-500 mt-4">{bidSuccess}</p>}
     </div>
   );
 };
 
 export default Page;
+
