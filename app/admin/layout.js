@@ -20,6 +20,9 @@ const AdminLayout = ({ children }) => {
               <Link href="/admin/addRecord" className="hover:bg-gray-700 p-2 rounded block">Add Record</Link>
             </li>
             <li className="mb-2">
+              <Link href="/admin/editRecord" className="hover:bg-gray-700 p-2 rounded block">Edit Record</Link>
+            </li>
+            <li className="mb-2">
               <Link href="/admin/bids" className="hover:bg-gray-700 p-2 rounded block">Bids</Link>
             </li>
             <li className="mb-2">

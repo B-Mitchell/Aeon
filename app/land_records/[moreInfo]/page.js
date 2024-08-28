@@ -151,6 +151,4 @@ const Page = ({ params }) => {
     </div>
   );
 };
-
 export default Page;
-
