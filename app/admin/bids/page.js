@@ -146,7 +146,7 @@ const AdminPage = () => {
                         Delete
                       </button>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-blue-400 underline"><p ><a href={`/land_records/${bid.id}`}>more info</a></p></td>
+                    <td className="px-6 py-4 whitespace-nowrap text-blue-400 underline"><p ><a href={`/land_records/${bid.land_id}`}>more info</a></p></td>
                   </tr>
                 ))}
               </tbody>

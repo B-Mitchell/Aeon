@@ -38,7 +38,7 @@ const Page = ({ params }) => {
   const handleBidSubmission = async (e) => {
     e.preventDefault();
     const bid = {
-      land_id: route, bid_amount: bidAmount, user_id: user_id
+      land_id: route, bid_amount: bidAmount, user_id: user_id, status: 'pending'
     }
 
     try {
@@ -80,6 +80,7 @@ const Page = ({ params }) => {
       map.remove();
     };
   }, []);
+  console.log(fetchedRecord);
 
   return (
     <div className="container mx-auto p-6">

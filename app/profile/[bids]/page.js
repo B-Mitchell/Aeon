@@ -1,9 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import supabase from '@/app/supabase'; // Adjust the import path as needed
+import { useRouter } from 'next/navigation';
 
 const Page = ({ params }) => {
     const route = params.bids;
+    const router = useRouter();
     const [bids, setBids] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -13,7 +15,7 @@ const Page = ({ params }) => {
             // Corrected the Supabase query to select specific fields
             let { data, error } = await supabase
                 .from('bids')
-                .select('user_id, land_id, bid_amount, status') // Add the fields you need
+                .select('id, user_id, land_id, bid_amount, status') // Add the fields you need
                 .eq('user_id', route); // Assuming 'route' contains the user_id
 
             if (error) throw error;
@@ -28,7 +30,6 @@ const Page = ({ params }) => {
     useEffect(() => {
         fetchBids();
     }, [route]); // Dependency array includes 'route'
-
     return (
         <div className="min-h-screen bg-gray-50 p-4 md:p-6 flex flex-col items-center">
             <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Bids</h1>
@@ -43,6 +44,7 @@ const Page = ({ params }) => {
                                 <th className="py-3 px-4 md:px-6 text-left">Land ID</th>
                                 <th className="py-3 px-4 md:px-6 text-left">Bid Amount</th>
                                 <th className="py-3 px-4 md:px-6 text-left">Status</th>
+                                <th className="py-3 px-4 md:px-6 text-left">view more</th>
                             </tr>
                         </thead>
                         <tbody className="text-gray-600 text-sm font-light">
@@ -52,6 +54,7 @@ const Page = ({ params }) => {
                                     <td className="py-3 px-4 md:px-6 text-left">{bid.land_id}</td>
                                     <td className="py-3 px-4 md:px-6 text-left">{bid.bid_amount}</td>
                                     <td className={`py-3 px-4 md:px-6 text-left ${bid.status === 'pending' ? 'text-yellow-500' : 'text-green-500'}  ${bid.status === 'rejected' ? 'text-red-500' : null}`}>{bid.status}</td>
+                                    <td className={`cursor-pointer py-3 px-4 md:px-6 text-left text-blue-400 underline`} onClick={() => router.push(`/land_records/${bid.land_id}`)}>view more</td>
                                 </tr>
                             ))}
                         </tbody>
