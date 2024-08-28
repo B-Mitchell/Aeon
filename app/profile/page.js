@@ -51,8 +51,8 @@ const Page = () => {
             </div>
         </div>
         <div className="w-[90%] md:w-[80%] shadow-lg bg-white m-auto mt-6 rounded-lg p-4 flex justify-between">
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200 w-[40%] " onClick={() => router.push('/admin/addRecord')}>Add New Record</button>
-            <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-200 w-[40%] " onClick={() => router.push('/land_records')}>View Existing Records</button>
+            {role === 'admin' ? <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200 w-[40%] " onClick={() => router.push('/admin/addRecord')}>Add New Record</button> : null}
+            <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-200 w-[40%] " onClick={() => router.push('/land_records')}>View Available Records</button>
         </div>
       </>
     )
