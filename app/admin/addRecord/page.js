@@ -153,6 +153,9 @@ const CreateLandRecord = () => {
             <option value="">Select ownership type</option>
             <option value="Freehold">Freehold</option>
             <option value="Leasehold">Leasehold</option>
+            <option value="private">private</option>
+            <option value="communal">communal</option>
+            <option value="government lease">government lease</option>
           </select>
         </div>
 

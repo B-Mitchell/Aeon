@@ -173,14 +173,19 @@ const AdminPage = () => {
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Ownership Type</label>
-              <input
-                type="text"
+              <select
                 name="ownershipType"
                 value={formData.ownershipType}
                 onChange={handleFormChange}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-                required
-              />
+                required>
+                <option value="">Select ownership type</option>
+                <option value="Freehold">Freehold</option>
+                <option value="Leasehold">Leasehold</option>
+                <option value="private">private</option>
+                <option value="communal">communal</option>
+                <option value="government lease">government lease</option>
+            </select>
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Zoning</label>
