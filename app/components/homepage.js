@@ -85,7 +85,7 @@ export default function Homepage() {
         <section className="py-16 bg-white">
           <div className="container mx-auto text-center px-6">
             <h2 className="text-3xl font-semibold mb-8">About Us</h2>
-            <p className="text-lg leading-relaxed">
+            <p className="sm:text-md md:text-lg leading-relaxed">
               Aeon is a comprehensive land information management system designed to streamline the process of managing land records, generating reports, and visualizing data through interactive maps.
             </p>
           </div>

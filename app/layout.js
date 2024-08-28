@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="sm:text-[.8rem] md:text-[.9rem]">
       <Providers >
         <Navbar />
         {children}
