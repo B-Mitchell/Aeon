@@ -120,12 +120,12 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen min-w-[50rem] scale-90">
+    <div className="p-6 bg-gray-50 min-h-screen w-full">
       <h1 className="text-2xl font-bold mb-6">Admin - Edit and Delete Records</h1>
 
       <div className="mb-6">
         {selectedRecord && (
-          <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-lg">
+          <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-lg max-w-4xl mx-auto">
             <h2 className="text-xl font-semibold mb-4">Edit Record</h2>
             <div className="mb-4">
               <label className="block text-gray-700">Name</label>
@@ -230,7 +230,7 @@ const AdminPage = () => {
         )}
       </div>
 
-      <div className="bg-white p-4 rounded-lg shadow-lg">
+      <div className="bg-white p-4 rounded-lg shadow-lg overflow-x-auto max-w-6xl mx-auto">
         <h2 className="text-xl font-semibold mb-4">Records List</h2>
         <table className="w-full border-collapse">
           <thead>
