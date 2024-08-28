@@ -44,33 +44,42 @@ export default function Homepage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative w-full h-[40vh] md:h-[60vh]">
-          <Image 
-            src={HeroImage} 
-            alt="Hero Image" 
-            layout="fill" 
-            objectFit="cover" 
-            quality={100}
-            className="absolute inset-0"
-          />
-          <div className="relative container mx-auto text-center px-6 flex flex-col items-center justify-center h-full z-10">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">Welcome to Aeon System</h1>
-            <p className="text-lg md:text-xl text-white mb-8">Manage and view land information with ease and efficiency.</p>
-            <div className="flex justify-center gap-4">
-            {
-              role === 'admin' ? <button className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-200" onClick={() => router.push('/admin/addRecord')}>Add New Record</button> : null
-            }
-              <button className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition duration-200" onClick={() => router.push('/land_records')}>
-                View Existing Records
-              </button>
-            </div>
-            {
-              role === 'admin' ? <button className="bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-black transition duration-200 mt-8" onClick={() => router.push('/admin/dashboard')}>View Dashboard</button> : null
-            }
-          </div>
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-        </section>
+        <section className="relative w-full h-[50vh] md:h-[60vh]">
+  <Image 
+    src={HeroImage} 
+    alt="Hero Image" 
+    layout="fill" 
+    objectFit="cover" 
+    quality={100}
+    className="absolute inset-0"
+  />
+  <div className="relative container mx-auto text-center px-6 flex flex-col items-center justify-center h-full z-10">
+    <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">Welcome to Aeon System</h1>
+    <p className="text-lg md:text-xl text-white mb-8">Manage and view land information with ease and efficiency.</p>
+    <div className="flex justify-center gap-4">
+      {
+        role === 'admin' ? (
+          <button className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-200" onClick={() => router.push('/admin/addRecord')}>
+            Add New Record
+          </button>
+        ) : null
+      }
+      <button className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition duration-200" onClick={() => router.push('/land_records')}>
+        View Existing Records
+      </button>
+    </div>
+    {
+      role === 'admin' ? (
+        <button className="bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-black transition duration-200 mt-8" onClick={() => router.push('/admin/dashboard')}>
+          View Dashboard
+        </button>
+      ) : null
+    }
+  </div>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-black opacity-50"></div>
+</section>
+
 
         {/* About Us Section */}
         <section className="py-16 bg-white">
