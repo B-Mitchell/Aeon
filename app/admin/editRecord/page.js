@@ -120,7 +120,7 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen min-w-[50rem]">
+    <div className="p-6 bg-gray-50 min-h-screen min-w-[50rem] scale-90">
       <h1 className="text-2xl font-bold mb-6">Admin - Edit and Delete Records</h1>
 
       <div className="mb-6">
