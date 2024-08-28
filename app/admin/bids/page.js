@@ -86,7 +86,7 @@ const AdminPage = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 md:scale-95 xl:scale-100">
       <h1 className="text-center text-[2rem] font-bold">Admin - Manage Bids</h1>
       {message && <p className="text-center text-red-500 mt-4">{message}</p>}
       {loading ? (
@@ -96,7 +96,7 @@ const AdminPage = () => {
           {bids.length === 0 ? (
             <p className="text-center">No Bids available.</p>
           ) : (
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className="min-w-full divide-y divide-gray-200 scale-95">
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -124,7 +124,7 @@ const AdminPage = () => {
                   <tr key={bid.id}>
                     <td className="px-6 py-4 whitespace-nowrap">{bid.id}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{bid.bid_amount}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{bid.user_id}</td>
+                    <td className="py-4 text-[.7rem] overflow-hidden whitespace-nowrap text-ellipsis">{bid.user_id}</td>
                     <td className={`px-6 py-4 whitespace-nowrap ${bid.status === 'pending' ? 'text-yellow-500' : 'text-green-500'}  ${bid.status === 'rejected' ? 'text-red-500' : null}`}>{bid.status || 'pending'}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button
