@@ -67,6 +67,9 @@ export default function Homepage() {
       <button className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition duration-200" onClick={() => router.push('/land_records')}>
         View Available Records
       </button>
+      <button className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition duration-200" onClick={() => router.push('/verify')}>
+        Verify records
+      </button>
     </div>
     {
       role === 'admin' ? (

@@ -16,7 +16,9 @@ const AdminPage = () => {
     ownershipType: '',
     zoning: '',
     registeredDate: '',
-    marketValue: ''
+    marketValue: '',
+    longitude: '', // Added longitude
+    latitude: ''   // Added latitude
   });
   const user_id = useSelector(state => state.user.id);
   const role = useSelector(state => state.user.role);
@@ -56,7 +58,9 @@ const AdminPage = () => {
       ownershipType: record.ownershipType,
       zoning: record.zoning,
       registeredDate: record.registeredDate,
-      marketValue: record.marketValue
+      marketValue: record.marketValue,
+      longitude: record.longitude, // Set longitude
+      latitude: record.latitude      // Set latitude
     });
   };
 
@@ -110,7 +114,9 @@ const AdminPage = () => {
             ownershipType: '',
             zoning: '',
             registeredDate: '',
-            marketValue: ''
+            marketValue: '',
+            longitude: '', // Reset longitude
+            latitude: ''   // Reset latitude
           });
         }
       } catch (err) {
@@ -185,7 +191,7 @@ const AdminPage = () => {
                 <option value="private">private</option>
                 <option value="communal">communal</option>
                 <option value="government lease">government lease</option>
-            </select>
+              </select>
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Zoning</label>
@@ -220,6 +226,28 @@ const AdminPage = () => {
                 required
               />
             </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Longitude</label>
+              <input
+                type="text"
+                name="longitude"
+                value={formData.longitude}
+                onChange={handleFormChange}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Latitude</label>
+              <input
+                type="text"
+                name="latitude"
+                value={formData.latitude}
+                onChange={handleFormChange}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                required
+              />
+            </div>
             <button
               type="submit"
               className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200"
@@ -232,7 +260,7 @@ const AdminPage = () => {
 
       <div className="bg-white p-4 rounded-lg shadow-lg overflow-x-auto max-w-6xl mx-auto">
         <h2 className="text-xl font-semibold mb-4">Records List</h2>
-        <table className="w-full border-collapse">
+        <table className="w-full table-auto border-collapse">
           <thead>
             <tr>
               <th className="border px-4 py-2">Name</th>
@@ -243,6 +271,8 @@ const AdminPage = () => {
               <th className="border px-4 py-2">Zoning</th>
               <th className="border px-4 py-2">Registered Date</th>
               <th className="border px-4 py-2">Market Value</th>
+              <th className="border px-4 py-2">Longitude</th>
+              <th className="border px-4 py-2">Latitude</th>
               <th className="border px-4 py-2">Actions</th>
             </tr>
           </thead>
@@ -257,16 +287,18 @@ const AdminPage = () => {
                 <td className="border px-4 py-2">{record.zoning}</td>
                 <td className="border px-4 py-2">{record.registeredDate}</td>
                 <td className="border px-4 py-2">{record.marketValue}</td>
+                <td className="border px-4 py-2">{record.longitude}</td> {/* Display Longitude */}
+                <td className="border px-4 py-2">{record.latitude}</td> {/* Display Latitude */}
                 <td className="border px-4 py-2">
                   <button
                     onClick={() => handleEditClick(record)}
-                    className="bg-blue-600 text-white px-2 py-1 rounded-md hover:bg-blue-700 transition duration-200 m-auto block"
+                    className="bg-yellow-400 text-white px-2 m-auto block py-1 rounded-md hover:bg-yellow-500 transition duration-200"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(record.id)}
-                    className="bg-red-600 text-white px-2 py-1 rounded-md hover:bg-red-700 transition duration-200 m-auto block mt-2"
+                    className="bg-red-600 text-white px-2 py-1 m-auto block mt-2 rounded-md hover:bg-red-700 transition duration-200 ml-2"
                   >
                     Delete
                   </button>

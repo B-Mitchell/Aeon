@@ -8,6 +8,8 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 const Page = ({ params }) => {
   let route = params.moreInfo;
   const user_id = useSelector(state => state.user.user_id);
+  const firstName = useSelector(state => state.user.first_name);
+  const lastName = useSelector(state => state.user.last_name);
   const mapContainer = useRef(null);
   const [loading, setLoading] = useState(false);
   const [fetchedRecord, setFetchedRecord] = useState([]);
@@ -37,8 +39,9 @@ const Page = ({ params }) => {
 
   const handleBidSubmission = async (e) => {
     e.preventDefault();
+    const userName = `${firstName} ${lastName}`;
     const bid = {
-      land_id: route, bid_amount: bidAmount, user_id: user_id, status: 'pending'
+      land_id: route, bid_amount: bidAmount, userName: userName, status: 'pending'
     }
 
     try {
@@ -107,6 +110,7 @@ const Page = ({ params }) => {
               <p className="text-gray-700 md:mb-4"><strong>Ownership Type:</strong> {fetchedRecord[0].ownershipType}</p>
               <p className="text-gray-700 md:mb-4"><strong>Zoning:</strong> {fetchedRecord[0].zoning}</p>
               <p className="text-gray-700 md:mb-4"><strong>Registered Date:</strong> {fetchedRecord[0].registeredDate}</p>
+              <p className="text-gray-700 md:mb-4"><strong>Longitude:</strong> {fetchedRecord[0].longitude} <strong >Latitude:</strong>{fetchedRecord[0].latitude}</p>
               <p className="text-gray-700 md:mb-4"><strong>Market Value:</strong> {fetchedRecord[0].marketValue}</p>
             </div>
           )

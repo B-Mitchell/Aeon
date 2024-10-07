@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import supabase from '@/app/supabase';
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
@@ -19,23 +19,25 @@ const CreateLandRecord = () => {
         zoning: '',
         registeredDate: '',
         marketValue: '',
+        latitude: '',  // New field for latitude
+        longitude: '', // New field for longitude
     });
-    // check if user is logged out
-    useEffect(() => {
-      if (user_id) {
-        if (role !== 'admin') {
-          router.push('/profile');
-        }
-      } else {
-        router.push('/auth/login');
-      }
-    }, [user_id, role, router]);
     
+    // Check if user is logged out
+    useEffect(() => {
+        if (user_id) {
+            if (role !== 'admin') {
+                router.push('/profile');
+            }
+        } else {
+            router.push('/auth/login');
+        }
+    }, [user_id, role, router]);
 
     const handleChange = (e) => {
         setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
+            ...formData,
+            [e.target.name]: e.target.value,
         });
     };
 
@@ -45,15 +47,15 @@ const CreateLandRecord = () => {
         console.log('Form data submitted:', formData);
         try {
             const { data, error } = await supabase
-            .from('LAND RECORDS')
-            .insert([formData])
-            .select()
+                .from('LAND RECORDS')
+                .insert([formData])
+                .select()
 
             if (error) {
                 console.error('Error uploading record:', error.message);
             } else {
-                console.log('product uploaded successfully:', data);
-                alert('record added successfully!');
+                console.log('Record uploaded successfully:', data);
+                alert('Record added successfully!');
                 setFormData({
                     userId: user_id,
                     name: '',
@@ -64,156 +66,189 @@ const CreateLandRecord = () => {
                     zoning: '',
                     registeredDate: '',
                     marketValue: '',
+                    latitude: '',  // Reset latitude
+                    longitude: '', // Reset longitude
                 });
             }
         
-        } catch(error) {
+        } catch (error) {
             console.error(error);
-            alert('error in submission!')
+            alert('Error in submission!');
         } finally {
             setLoading(false);
         }
     };
 
-  return (
-    <div className="container mx-auto p-6 w-[100%] md:w-[70%] lg:w-[70%] min-w-[30rem]">
-      <h1 className="text-3xl font-bold mb-6 text-center">Create Land Record</h1>
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-            Land Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Enter land name"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
+    return (
+        <div className="container mx-auto p-6 w-[100%] md:w-[70%] lg:w-[70%] min-w-[30rem]">
+            <h1 className="text-3xl font-bold mb-6 text-center">Create Land Record</h1>
+            <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                        Land Name
+                    </label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Enter land name"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
-            Location/ Address
-          </label>
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Enter location"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
+                        Location/ Address
+                    </label>
+                    <input
+                        type="text"
+                        name="location"
+                        value={formData.location}
+                        onChange={handleChange}
+                        placeholder="Enter location"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="size">
-            Size (e.g., 500 acres)
-          </label>
-          <input
-            type="text"
-            name="size"
-            value={formData.size}
-            onChange={handleChange}
-            placeholder="Enter size"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="size">
+                        Size (e.g., 500 acres)
+                    </label>
+                    <input
+                        type="text"
+                        name="size"
+                        value={formData.size}
+                        onChange={handleChange}
+                        placeholder="Enter size"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="owner">
-            Owner
-          </label>
-          <input
-            type="text"
-            name="owner"
-            value={formData.owner}
-            onChange={handleChange}
-            placeholder="Enter owner name"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="owner">
+                        Owner
+                    </label>
+                    <input
+                        type="text"
+                        name="owner"
+                        value={formData.owner}
+                        onChange={handleChange}
+                        placeholder="Enter owner name"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="ownershipType">
-            Ownership Type
-          </label>
-          <select
-            name="ownershipType"
-            value={formData.ownershipType}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          >
-            <option value="">Select ownership type</option>
-            <option value="Freehold">Freehold</option>
-            <option value="Leasehold">Leasehold</option>
-            <option value="private">private</option>
-            <option value="communal">communal</option>
-            <option value="government lease">government lease</option>
-          </select>
-        </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="ownershipType">
+                        Ownership Type
+                    </label>
+                    <select
+                        name="ownershipType"
+                        value={formData.ownershipType}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        required
+                    >
+                        <option value="">Select ownership type</option>
+                        <option value="Freehold">Freehold</option>
+                        <option value="Leasehold">Leasehold</option>
+                        <option value="private">private</option>
+                        <option value="communal">communal</option>
+                        <option value="government lease">government lease</option>
+                    </select>
+                </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="zoning">
-            Zoning
-          </label>
-          <input
-            type="text"
-            name="zoning"
-            value={formData.zoning}
-            onChange={handleChange}
-            placeholder="Enter zoning type (e.g., Residential)"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="zoning">
+                        Zoning
+                    </label>
+                    <input
+                        type="text"
+                        name="zoning"
+                        value={formData.zoning}
+                        onChange={handleChange}
+                        placeholder="Enter zoning type (e.g., Residential)"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="registeredDate">
-            Registered Date
-          </label>
-          <input
-            type="date"
-            name="registeredDate"
-            value={formData.registeredDate}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="registeredDate">
+                        Registered Date
+                    </label>
+                    <input
+                        type="date"
+                        name="registeredDate"
+                        value={formData.registeredDate}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
 
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="marketValue">
-            Market Value (e.g., 5,000,000)
-          </label>
-          <input
-            type="number"
-            name="marketValue"
-            value={formData.marketValue}
-            onChange={handleChange}
-            placeholder="Enter market value"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="marketValue">
+                        Market Value (e.g., 5,000,000)
+                    </label>
+                    <input
+                        type="number"
+                        name="marketValue"
+                        value={formData.marketValue}
+                        onChange={handleChange}
+                        placeholder="Enter market value"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
 
-        <div className="text-center">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 focus:outline-none"
-          >
-            {loading ? 'creating record...' : 'Create Record'}
-          </button>
+                {/* New Fields for Latitude and Longitude */}
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="latitude">
+                        Latitude
+                    </label>
+                    <input
+                        type="text"
+                        name="latitude"
+                        value={formData.latitude}
+                        onChange={handleChange}
+                        placeholder="Enter latitude"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="longitude">
+                        Longitude
+                    </label>
+                    <input
+                        type="text"
+                        name="longitude"
+                        value={formData.longitude}
+                        onChange={handleChange}
+                        placeholder="Enter longitude"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
+
+                <div className="text-center">
+                    <button
+                        type="submit"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 focus:outline-none"
+                    >
+                        {loading ? 'Creating record...' : 'Create Record'}
+                    </button>
+                </div>
+            </form>
         </div>
-      </form>
-    </div>
-  );
+    );
 };
 
 export default CreateLandRecord;

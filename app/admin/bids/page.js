@@ -14,7 +14,7 @@ const AdminPage = () => {
     try {
       const { data, error } = await supabase
         .from('bids')
-        .select('id, bid_amount, user_id, status, land_id') // Fetch necessary fields
+        .select('id, bid_amount, userName, status, land_id') // Fetch necessary fields
         .order('created_at', { ascending: false }); // Order by latest bids
 
       if (error) throw error;
@@ -106,7 +106,7 @@ const AdminPage = () => {
                     Bid Amount (NGN)
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    User ID
+                    Name
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
@@ -124,7 +124,7 @@ const AdminPage = () => {
                   <tr key={bid.id}>
                     <td className="px-6 py-4 whitespace-nowrap">{bid.id}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{bid.bid_amount}</td>
-                    <td className="py-4 text-[.7rem] overflow-hidden whitespace-nowrap text-ellipsis">{bid.user_id}</td>
+                    <td className="py-4 text-[.7rem] overflow-hidden whitespace-nowrap text-ellipsis">{bid.userName}</td>
                     <td className={`px-6 py-4 whitespace-nowrap ${bid.status === 'pending' ? 'text-yellow-500' : 'text-green-500'}  ${bid.status === 'rejected' ? 'text-red-500' : null}`}>{bid.status || 'pending'}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button
