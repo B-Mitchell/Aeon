@@ -56,7 +56,7 @@ const Page = () => {
 
     useEffect(() => {
         fetchLandRecords();
-    }, [])
+    }, []);
 
     return (
         <div className="container mx-auto p-6">
